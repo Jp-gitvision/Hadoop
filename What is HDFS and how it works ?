@@ -1,0 +1,11 @@
+What is HDFS and how it works ?
+
+Git clone this link in  your terminal : https://github.com/Marcel-Jan/docker-hadoop-spark
+
+To validate this challenge you will have to validate the following commands (Please read the commands docs first):
+
+In the Hadoop cluster from Hortonworks or EMR what is the default block size?
+Download this file  Pokemon - Datase and copy it into HDFS in a folder called pekemon-data
+Usge "fsck command" to print the block storage detail for the pokemon file
+Accroding to the size from the last request, what is the size of the file and the replication number
+
