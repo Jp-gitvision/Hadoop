@@ -9,3 +9,55 @@ Download this file  Pokemon - Datase and copy it into HDFS in a folder called pe
 Usge "fsck command" to print the block storage detail for the pokemon file
 Accroding to the size from the last request, what is the size of the file and the replication number
 
+jujupeneau@MacBook-Pro-de-Julien docker-hadoop-spark % docker cp pokemon.csv namenode:pokemon.cs
+v
+Successfully copied 42.5kB to namenode:pokemon.csv
+jujupeneau@MacBook-Pro-de-Julien docker-hadoop-spark % docker exec -it namenode bash
+root@e73aea275b21:/# hdfs dfs -mkdir -p /data/openbeer/pokemon-data
+root@e73aea275b21:/# hdfs dfs -put pokemon.csv /data/openbeer/pokemon-data/pokemon.csv
+2023-11-15 09:07:26,882 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+root@e73aea275b21:/# hdfs fsck /data/openbeer/pokemon-data/pokemon.csv -files -blocks -locations
+Connecting to namenode via http://namenode:9870/fsck?ugi=root&files=1&blocks=1&locations=1&path=%2Fdata%2Fopenbeer%2Fpokemon-data%2Fpokemon.csv
+FSCK started by root (auth:SIMPLE) from /172.19.0.9 for path /data/openbeer/pokemon-data/pokemon.csv at Wed Nov 15 09:13:09 UTC 2023
+/data/openbeer/pokemon-data/pokemon.csv 40464 bytes, replicated: replication=3, 1 block(s):  Under replicated BP-564169005-172.19.0.4-1700006012067:blk_1073741834_1010. Target Replicas is 3 but found 1 live replica(s), 0 decommissioned replica(s), 0 decommissioning replica(s).
+0. BP-564169005-172.19.0.4-1700006012067:blk_1073741834_1010 len=40464 Live_repl=1  [DatanodeInfoWithStorage[172.19.0.4:9866,DS-182e9f27-329d-4c20-8bfb-bb7a95c57acb,DISK]]
+
+
+Status: HEALTHY
+ Number of data-nodes:  1
+ Number of racks:               1
+ Total dirs:                    0
+ Total symlinks:                0
+
+Replicated Blocks:
+ Total size:    40464 B
+ Total files:   1
+ Total blocks (validated):      1 (avg. block size 40464 B)
+ Minimally replicated blocks:   1 (100.0 %)
+ Over-replicated blocks:        0 (0.0 %)
+ Under-replicated blocks:       1 (100.0 %)
+ Mis-replicated blocks:         0 (0.0 %)
+ Default replication factor:    3
+ Average block replication:     1.0
+ Missing blocks:                0
+ Corrupt blocks:                0
+ Missing replicas:              2 (66.666664 %)
+
+Erasure Coded Block Groups:
+ Total size:    0 B
+ Total files:   0
+ Total block groups (validated):        0
+ Minimally erasure-coded block groups:  0
+ Over-erasure-coded block groups:       0
+ Under-erasure-coded block groups:      0
+ Unsatisfactory placement block groups: 0
+ Average block group size:      0.0
+ Missing block groups:          0
+ Corrupt block groups:          0
+ Missing internal blocks:       0
+FSCK ended at Wed Nov 15 09:13:09 UTC 2023 in 4 milliseconds
+
+
+The filesystem under path '/data/openbeer/pokemon-data/pokemon.csv' is HEALTHY
+root@e73aea275b21:/# 
+
